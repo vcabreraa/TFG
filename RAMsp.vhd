@@ -20,53 +20,46 @@ use WORK.IMG_PKG.ALL;
 entity RAMsp is
 port( 
     clk : in std_logic;
-    wea : in std_logic;
-    wea1 : in std_logic;
-    addra : in std_logic_vector(c_2dim_img-1 downto 0);
-    addr3 : in std_logic_vector(c_2dim_img-1 downto 0);
-    addrb : in std_logic_vector(c_2dim_img-1 downto 0);
-    dina : in std_logic_vector(8-1 downto 0);
---    douta : out std_logic_vector(8-1 downto 0);
-    doutb : out std_logic_vector(8-1 downto 0)
+    wea1 : in std_logic; --Señal que indica la escritura en la RAM (imagen procesada)
+    addra : in std_logic_vector(c_dim_img-1 downto 0); --Dirección de memoria a escribir en la RAM. Direccion del pixel comparado que supera el umbral de parecido.
+    addrb : in std_logic_vector(c_dim_img-1 downto 0); --Direccion de memoria para pintar la imagen procesada en la VGA
+    dina : in std_logic; --Valor del pixel comparado que supera el umbral de parecido para escrbirlo en la RAM
+    doutb : out std_logic --Valor del pixel para pintar la imagen procesada en la VGA
     );
 end RAMsp;
 
 architecture Behavioral of RAMsp is
 
-signal addra_int, addrb_int : natural range 0 to 2**c_2dim_img -1;
-signal addra_rg_int, addrb_rg_int : natural range 0 to 2**c_2dim_img -1;
+signal addra_int, addrb_int : natural range 0 to 2**c_dim_img -1;
+signal addra_rg_int, addrb_rg_int : natural range 0 to 2**c_dim_img -1;
 
-type memostruct is array (natural range<>) of std_logic_vector(8-1 downto 0);
-signal memo : memostruct(0 to 2**c_2dim_img -1); --90000??
-
+type memostruct is array (natural range<>) of std_logic;
+signal memo : memostruct(0 to 2**c_dim_img -1) := (others => '1');
 
 begin
 
-P_MUX: Process (wea, wea1)
+P_MUX: Process (wea1, addra)
 begin
-    if wea1 = '1' then
+    if wea1 = '1' then --Señal que indica la escritura en la RAM
         addra_int <= TO_INTEGER(unsigned(addra));
-    elsif wea = '1' then
-        addra_int <= TO_INTEGER(unsigned(addr3));
     end if;
 end process;
 
 addrb_int <= TO_INTEGER(unsigned(addrb));
 
-P1: process (clk) --Primero escribe en a, luego lee por b.
+--------Proceso que primero escribe en a, y luego lee por b---------
+P1: process (clk)
 begin
     if clk'event and clk='1' then
-        if wea1 = '1' then -- si se escribe en a
+        if wea1 = '1' then --Señal que indica la escritura en la RAM (en a)
              memo(addra_int) <= dina;
-        elsif wea = '1' then
-             memo(addra_int) <= (others => '1');
         end if;
            addra_rg_int <= addra_int;
            addrb_rg_int <= addrb_int;
     end if;
 end process;
+--------------------------------------------------------------------
 
 doutb <= memo(addrb_rg_int);
---douta <= memo(addra_rg_int);
 
 end Behavioral;

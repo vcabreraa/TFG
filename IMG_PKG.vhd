@@ -37,11 +37,11 @@ use WORK.DCSE_PKG.ALL;
 
 package IMG_PKG is
 
-  constant dim_img  : natural := 256 * 256;
-  constant lado_img : natural := 256;
-  constant c_dim_img : natural := log2i(dim_img) + 1;
-  constant c_lado_img : natural := log2i(lado_img) + 1;
-  constant c_2dim_img : natural := 18; --c_dim_img*2
-  constant c_umbral : natural := 100;
+  constant dim_img  : natural := 65536; --Dimension de la imagen total
+  constant lado_img : natural := 256; --Numero de pixel por lado de la imagen
+  constant c_dim_img : natural := 16; --Numero de bits necesarios para las direcciones de la imagen
+  constant c_lado_img : natural := 8; --Numero de bits necesarios para las direcciones de un lado de la imagen
+  constant c_umbral : natural := 0; --Valor umbral para decidir si dos parches son parecidos o no
+  constant c_bitscolor : natural := 8; --Numero de bits de profundidad de color de la imagen
 
 end IMG_PKG;

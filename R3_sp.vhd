@@ -30,20 +30,20 @@ use WORK.IMG_PKG.ALL;
 entity R3_sp is
   port (
     clk  : in  std_logic;   -- reloj
-    addr3 : in  std_logic_vector(c_2dim_img-1 downto 0); --16-1
+    addr3 : in  std_logic_vector(18-1 downto 0); --16-1
     dout3 : out std_logic_vector(8-1 downto 0); 
-    addr_x : in std_logic_vector (c_2dim_img-1 downto 0);
-    dout_x: out std_logic_vector(8-1 downto 0); 
+    addr_x : in std_logic_vector (16-1 downto 0);
+    dout_x: out std_logic_vector(8-1 downto 0)
     
-    addr_esc : in std_logic_vector(c_2dim_img-1 downto 0);
-    dout_esc : out std_logic_vector(8-1 downto 0)
+  --  addr_esc : in std_logic_vector(18-1 downto 0);
+ --   dout_esc : out std_logic_vector(8-1 downto 0)
   );
 end R3_sp;
 
 
 architecture BEHAVIORAL of R3_sp is
 
-  signal addr_int_esc : natural range 0 to 2**c_2dim_img-1;
+  --signal addr_int_esc : natural range 0 to 2**c_2dim_img-1;
   signal addr_int_x : natural range 0 to 2**c_2dim_img-1;
 
   signal addr3_int  : natural range 0 to 2**16-1;
@@ -65590,14 +65590,14 @@ architecture BEHAVIORAL of R3_sp is
 begin
                       
              addr3_int <= TO_INTEGER(unsigned(addr3));
-             addr_int_esc <= TO_INTEGER(unsigned(addr_esc));
+          --   addr_int_esc <= TO_INTEGER(unsigned(addr_esc));
              addr_int_x <= TO_INTEGER(unsigned(addr_x));
                       
                         P_ROM: process (clk)
                         begin
                           if clk'event and clk='1' then
                             dout3 <= filaimg(addr3_int);
-                            dout_esc <= filaimg(addr_int_esc);
+                       --     dout_esc <= filaimg(addr_int_esc);
                             dout_x <= filaimg(addr_int_x);
                           end if;
                         end process;
