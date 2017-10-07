@@ -31,18 +31,22 @@ end RAMsp;
 architecture Behavioral of RAMsp is
 
 signal addra_int, addrb_int : natural range 0 to 2**c_dim_img -1;
-signal addra_rg_int, addrb_rg_int : natural range 0 to 2**c_dim_img -1;
+signal addrb_rg_int : natural range 0 to 2**c_dim_img -1;
 
 type memostruct is array (natural range<>) of std_logic;
 signal memo : memostruct(0 to 2**c_dim_img -1) := (others => '1');
 
 begin
 
-P_MUX: Process (wea1, addra)
+P_MUX: Process (clk)
 begin
+if clk'event and clk='1' then
     if wea1 = '1' then --Señal que indica la escritura en la RAM
-        addra_int <= TO_INTEGER(unsigned(addra));
+        addra_int <= TO_INTEGER(unsigned(addra)); 
+    else
+        addra_int <= addra_int;
     end if;
+end if;
 end process;
 
 addrb_int <= TO_INTEGER(unsigned(addrb));
@@ -54,7 +58,6 @@ begin
         if wea1 = '1' then --Señal que indica la escritura en la RAM (en a)
              memo(addra_int) <= dina;
         end if;
-           addra_rg_int <= addra_int;
            addrb_rg_int <= addrb_int;
     end if;
 end process;

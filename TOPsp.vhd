@@ -27,23 +27,23 @@ entity TOPsp is
          blue : out STD_LOGIC_VECTOR (c_nb_blue-1 downto 0);
          green : out STD_LOGIC_VECTOR (c_nb_green-1 downto 0);         
          vsynch : out STD_LOGIC;
-         hsynch : out STD_LOGIC;
-		 led0 : out STD_LOGIC;
-		 led1 : out STD_LOGIC;
-		 led2 : out STD_LOGIC;
-		 led3 : out STD_LOGIC;
-		 led4 : out STD_LOGIC;
-		 led5 : out STD_LOGIC;
-		 led6 : out STD_LOGIC;
-		 led7 : out STD_LOGIC;
-		 led8 : out STD_LOGIC;
-		 led9 : out STD_LOGIC;
-		 led10 : out STD_LOGIC;
-		 led11 : out STD_LOGIC;
-		 led12 : out STD_LOGIC;
-		 led13 : out STD_LOGIC;
-		 led14 : out STD_LOGIC;
-		 led15 : out STD_LOGIC
+         hsynch : out STD_LOGIC
+--		 led0 : out STD_LOGIC;
+--		 led1 : out STD_LOGIC;
+--		 led2 : out STD_LOGIC;
+--		 led3 : out STD_LOGIC;
+--		 led4 : out STD_LOGIC;
+--		 led5 : out STD_LOGIC;
+--		 led6 : out STD_LOGIC;
+--		 led7 : out STD_LOGIC;
+--		 led8 : out STD_LOGIC;
+--		 led9 : out STD_LOGIC;
+--		 led10 : out STD_LOGIC;
+--		 led11 : out STD_LOGIC;
+--		 led12 : out STD_LOGIC;
+--		 led13 : out STD_LOGIC;
+--		 led14 : out STD_LOGIC;
+--		 led15 : out STD_LOGIC
   );
 end TOPsp;
 
@@ -116,24 +116,24 @@ Component MAQsp
         espera_ciclo : out STD_LOGIC; --Señal que activa el contador del parche 3x3 del pixel de la vecindad 11x11 de la ROM3
         asigna : out STD_LOGIC; --Señal que suma +1 en los dos contadores de pixeles de los parches 3x3 de ROM1 y ROM3 ya que se han comparado entre ellos (modulo CMP)
         busca_hecho_maqestados : out STD_LOGIC; --Señal que activa la comparación (resta) del pixel de la ROM1 con el pixel de la ROM3
-        para_contador : out STD_LOGIC;  --Señal que indica que se ha encontrado un pixel negro de la R2, parando así el contador de pixeles de la R2
+        para_contador : out STD_LOGIC  --Señal que indica que se ha encontrado un pixel negro de la R2, parando así el contador de pixeles de la R2
 		-----Señales LED para saber en que estado nos encontramos en cada momento-----------------------------------------
-		led0 : out STD_LOGIC; --ESPERA
-		led1 : out STD_LOGIC; --CICLORLJ
-		led2 : out STD_LOGIC; --PARA
-		led3 : out STD_LOGIC; --RESTA
-		led4 : out STD_LOGIC; --COMPARA2
-		led5 : out STD_LOGIC; --PINTA
-		led6 : out STD_LOGIC; --COMPRUEBA
-		led7 : out STD_LOGIC; --INIC
-		led8 : out STD_LOGIC;
-		led9 : out STD_LOGIC;
-		led10 : out STD_LOGIC;
-		led11 : out STD_LOGIC;
-		led12 : out STD_LOGIC;
-		led13 : out STD_LOGIC;
-		led14 : out STD_LOGIC;
-		led15 : out STD_LOGIC
+--		led0 : out STD_LOGIC; --ESPERA
+--		led1 : out STD_LOGIC; --CICLORLJ
+--		led2 : out STD_LOGIC; --PARA
+--		led3 : out STD_LOGIC; --RESTA
+--		led4 : out STD_LOGIC; --COMPARA2
+--		led5 : out STD_LOGIC; --PINTA
+--		led6 : out STD_LOGIC; --COMPRUEBA
+--		led7 : out STD_LOGIC; --INIC
+--		led8 : out STD_LOGIC;
+--		led9 : out STD_LOGIC;
+--		led10 : out STD_LOGIC;
+--		led11 : out STD_LOGIC;
+--		led12 : out STD_LOGIC;
+--		led13 : out STD_LOGIC;
+--		led14 : out STD_LOGIC;
+--		led15 : out STD_LOGIC
 		);
     end Component;
     
@@ -288,24 +288,24 @@ Port map(
     fin_vecindad => c_fin_vecindad, --Señal que indica que se ha terminado la vecindad 11x11 de un pixel de la ROM3
     para_vecindad => c_para_vecindad, --Señal que para el contador de la vecindad 11x11 en cada pixel para hacer su parche 3x3
     busca1_hecho_maqestados => c_busca1, --Señal que para el contador del parche 3x3 en cada pixel para su procesamiento
-    busca_hecho_maqestados => c_busca, --Señal que activa la comparación (resta) del pixel de la ROM1 con el pixel de la ROM3
+    busca_hecho_maqestados => c_busca --Señal que activa la comparación (resta) del pixel de la ROM1 con el pixel de la ROM3
 	-----Señales LED para saber en que estado nos encontramos en cada momento-----------------------------------------
-	led0 => led0, --ESPERA
-	led1 => led1, --CICLORLJ
-	led2 => led2, --PARA
-	led3 => led3, --RESTA
-	led4 => led4, --COMPARA2
-	led5 => led5, --PINTA
-	led6 => led6, --COMPRUEBA
-	led7 => led7, --INIC
-	led8 => led8,
-	led9 => led9,
-	led10 => led10,
-	led11 => led11,
-	led12 => led12,
-	led13 => led13,
-	led14 => led14,
-	led15 => led15
+--	led0 => led0, --ESPERA
+--	led1 => led1, --CICLORLJ
+--	led2 => led2, --PARA
+--	led3 => led3, --RESTA
+--	led4 => led4, --COMPARA2
+--	led5 => led5, --PINTA
+--	led6 => led6, --COMPRUEBA
+--	led7 => led7, --INIC
+--	led8 => led8,
+--	led9 => led9,
+--	led10 => led10,
+--	led11 => led11,
+--	led12 => led12,
+--	led13 => led13,
+--	led14 => led14,
+--	led15 => led15
     );
     
 RAM1: RAMsp

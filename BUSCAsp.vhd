@@ -103,6 +103,7 @@ P_cont_pxl_3x3_1: Process(rst,clk)
     begin
     if rst = c_on then
         cont_pxl_3x3_1 <= (others => '0'); 
+        cuenta_seguridad <= '0';
     elsif clk'event and clk = '1' then	
         cont_pxl_3x3_1 <= addr1_aux - (lado_img + 1);
 		if busca1_hecho_aux = '1' then --Cada pixel del parche 3x3, para indicar que se realiza el procesamiento de ese pixel

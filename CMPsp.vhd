@@ -426,13 +426,16 @@ end process;
 --end process;
 
 -------------------------Proceso que escoge la dirección del pixel a escribir en la RAM (imagen procesada)-----------------------------------------------------
-p4: process (cuenta)
+p4: process (rst, clk)
 begin
-
-if cuenta = 4 then  --El pixel que se está procesando, es decir, aquel que se querría pintar                     
-    addr_esc_aux <= pxl_num_3x3; --Dirección del pixel a pintar de la ROM3 en la RAM
-else
-    addr_esc_aux <= addr_esc_aux;
+if rst = c_on then
+    addr_esc_aux <= (others => '0');
+elsif clk'event and clk = '1' then
+    if cuenta = 3 then  --El pixel que se está procesando, es decir, aquel que se querría pintar  (seria en la cuenta 4, pero es la 3 debido a la perdida de una cuenra por el ciclo de rlj                   
+        addr_esc_aux <= pxl_num_3x3; --Dirección del pixel a pintar de la ROM3 en la RAM
+    else
+        addr_esc_aux <= addr_esc_aux;
+    end if;
 end if;
 end process;
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
