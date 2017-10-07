@@ -35,24 +35,24 @@ entity MAQsp is
 			espera_ciclo : out STD_LOGIC; --Señal que activa el contador del parche 3x3 del pixel de la vecindad 11x11 de la ROM3
 			asigna : out STD_LOGIC; --Señal que suma +1 en los dos contadores de pixeles de los parches 3x3 de ROM1 y ROM3 ya que se han comparado entre ellos (modulo CMP)
 			busca_hecho_maqestados : out STD_LOGIC; --Señal que activa la comparación (resta) del pixel de la ROM1 con el pixel de la ROM3
-			para_contador : out STD_LOGIC;  --Señal que indica que se ha encontrado un pixel negro de la R2, parando así el contador de pixeles de la R2
+			para_contador : out STD_LOGIC  --Señal que indica que se ha encontrado un pixel negro de la R2, parando así el contador de pixeles de la R2
 			-----Señales LED para saber en que estado nos encontramos en cada momento-----------------------------------------
-			led0 : out STD_LOGIC; --ESPERA
-			led1 : out STD_LOGIC; --CICLORLJ
-			led2 : out STD_LOGIC; --PARA
-			led3 : out STD_LOGIC; --RESTA
-			led4 : out STD_LOGIC; --COMPARA2
-			led5 : out STD_LOGIC; --PINTA
-			led6 : out STD_LOGIC; --COMPRUEBA
-			led7 : out STD_LOGIC; --INIC
-			led8 : out STD_LOGIC; --INIC
-			led9 : out STD_LOGIC;
-			led10 : out STD_LOGIC;
-			led11 : out STD_LOGIC;
-			led12 : out STD_LOGIC;
-			led13 : out STD_LOGIC;
-			led14 : out STD_LOGIC;
-			led15 : out STD_LOGIC
+--			led0 : out STD_LOGIC; --ESPERA
+--			led1 : out STD_LOGIC; --CICLORLJ
+--			led2 : out STD_LOGIC; --PARA
+--			led3 : out STD_LOGIC; --RESTA
+--			led4 : out STD_LOGIC; --COMPARA2
+--			led5 : out STD_LOGIC; --PINTA
+--			led6 : out STD_LOGIC; --COMPRUEBA
+--			led7 : out STD_LOGIC; --INIC
+--			led8 : out STD_LOGIC; --INIC
+--			led9 : out STD_LOGIC;
+--			led10 : out STD_LOGIC;
+--			led11 : out STD_LOGIC;
+--			led12 : out STD_LOGIC;
+--			led13 : out STD_LOGIC;
+--			led14 : out STD_LOGIC;
+--			led15 : out STD_LOGIC
 		   );
 end MAQsp;
 
@@ -70,15 +70,15 @@ architecture Behavioral of MAQsp is
 begin
 
   --------SOLO PARA VER QUE OCURRE-------
-  led7 <= led7_aux;
-  led8 <= led8_aux;
-  led15 <= cuenta_comprueba (6);
-  led14 <= cuenta_comprueba (5);
-  led13 <= cuenta_comprueba (4);
-  led12 <= cuenta_comprueba (3);
-  led11 <= cuenta_comprueba (2);
-  led10 <= cuenta_comprueba (1);
-  led9 <= cuenta_comprueba (0);
+--  led7 <= led7_aux;
+--  led8 <= led8_aux;
+--  led15 <= cuenta_comprueba (6);
+--  led14 <= cuenta_comprueba (5);
+--  led13 <= cuenta_comprueba (4);
+--  led12 <= cuenta_comprueba (3);
+--  led11 <= cuenta_comprueba (2);
+--  led10 <= cuenta_comprueba (1);
+--  led9 <= cuenta_comprueba (0);
   ---------------------------------------
 
 P_COMB_ESTADO: Process (estado_actual, dout2, rst, busca1_hecho, para_vecindad_maqestados, busca_hecho, fin_compara, compara_hecho, fin_vecindad, fin_img, cuenta_comprueba, led7_aux, led8_aux)
@@ -142,34 +142,34 @@ P_COMB_ESTADO: Process (estado_actual, dout2, rst, busca1_hecho, para_vecindad_m
         end case;
 		
 --------------SOLO PARA VER QUE OCURRE-------
-	if rst = '1' then
-		led7_aux <= '0';
-		led8_aux <= '0';
-		cuenta_comprueba <= (others => '0');
-	else
-		if compara_hecho = '1' then
-			if fin_vecindad = '1' and compara_hecho = '1' then
-				led7_aux <= '1';
-				cuenta_comprueba <= cuenta_comprueba + 1;
-				led8_aux <= led8_aux;
-			elsif fin_vecindad = '1'  then
-				led8_aux <= '1';
-				led7_aux <= led7_aux;
-				cuenta_comprueba <= cuenta_comprueba + 0;
-			elsif cuenta_comprueba = "1111111" then
-                led7_aux <= led7_aux;
-                cuenta_comprueba <= cuenta_comprueba + 0;
-                led8_aux <= led8_aux;
-			else
-				cuenta_comprueba <= cuenta_comprueba + 1;
-				led7_aux <= led7_aux;
-			end if;
-		else
-			led7_aux <= led7_aux;
-			cuenta_comprueba <= cuenta_comprueba + 0;
-			led8_aux <= led8_aux;
-		end if;
-	end if;
+--	if rst = '1' then
+--		led7_aux <= '0';
+--		led8_aux <= '0';
+--		cuenta_comprueba <= (others => '0');
+--	else
+--		if compara_hecho = '1' then
+--			if fin_vecindad = '1' and compara_hecho = '1' then
+--				led7_aux <= '1';
+--				cuenta_comprueba <= cuenta_comprueba + 1;
+--				led8_aux <= led8_aux;
+--			elsif fin_vecindad = '1'  then
+--				led8_aux <= '1';
+--				led7_aux <= led7_aux;
+--				cuenta_comprueba <= cuenta_comprueba + 0;
+--			elsif cuenta_comprueba = "1111111" then
+--                led7_aux <= led7_aux;
+--                cuenta_comprueba <= cuenta_comprueba + 0;
+--                led8_aux <= led8_aux;
+--			else
+--				cuenta_comprueba <= cuenta_comprueba + 1;
+--				led7_aux <= led7_aux;
+--			end if;
+--		else
+--			led7_aux <= led7_aux;
+--			cuenta_comprueba <= cuenta_comprueba + 0;
+--			led8_aux <= led8_aux;
+--		end if;
+--	end if;
 --------------------------------------------
 		
     end process;                      
@@ -197,13 +197,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '0'; --Señal que suma +1 en los dos contadores de pixeles de los parches 3x3 de ROM1 y ROM3 ya que se han comparado entre ellos (modulo CMP)
 --                   fin_imagen <= '0'; --Fin del procesado y que pinta la imagen procesada
 				   
-				   led0 <= '0';
-				   led1 <= '0';
-				   led2 <= '0';
-				   led3 <= '0';
-				   led4 <= '0';
-				   led5 <= '0';
-				   led6 <= '0';	
+--				   led0 <= '0';
+--				   led1 <= '0';
+--				   led2 <= '0';
+--				   led3 <= '0';
+--				   led4 <= '0';
+--				   led5 <= '0';
+--				   led6 <= '0';	
 				--   led7	<= '1';			   
                when Pinta => --PINTA: Se paran todos los contadores y se termina el procesado, pintando así la imagen procesada
                    para_contador <= '1'; 
@@ -215,13 +215,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '0';
 --                   fin_imagen <= '1';
 				   
-				   led0 <= '0';
-				   led1 <= '0';
-				   led2 <= '0';
-				   led3 <= '0';
-				   led4 <= '0';
-				   led5 <= '1';
-				   led6 <= '0';	
+--				   led0 <= '0';
+--				   led1 <= '0';
+--				   led2 <= '0';
+--				   led3 <= '0';
+--				   led4 <= '0';
+--				   led5 <= '1';
+--				   led6 <= '0';	
 				--   led7	<= '0';
                when espera => --ESPERA: Cuando se ha encontrado un pixel negro en la R2 (dout2='0'), se para el contador de pixeles de la R2 y se activa el parche 3x3 de la ROM1   
                    para_contador <= '1';
@@ -233,13 +233,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '0';
 --                   fin_imagen <= '0';
 				   
-				   led0 <= '1';
-				   led1 <= '0';
-				   led2 <= '0';
-				   led3 <= '0';
-				   led4 <= '0';
-				   led5 <= '0';
-				   led6 <= '0';	
+--				   led0 <= '1';
+--				   led1 <= '0';
+--				   led2 <= '0';
+--				   led3 <= '0';
+--				   led4 <= '0';
+--				   led5 <= '0';
+--				   led6 <= '0';	
 				  -- led7	<= '0';
                when CicloRLJ => --CICLORLJ: Se para (además del contador parado en espera) el contador de la vecindad 11x11 de la ROM3, empezando así el parche 3x3 de la ROM3; y también se para el contador del parche 3x3 de la ROM1
                    para_contador <= '1';
@@ -251,13 +251,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '0';
 --                   fin_imagen <= '0';
 				   
-				   led0 <= '0';
-				   led1 <= '1';
-				   led2 <= '0';
-				   led3 <= '0';
-				   led4 <= '0';
-				   led5 <= '0';
-				   led6 <= '0';	
+--				   led0 <= '0';
+--				   led1 <= '1';
+--				   led2 <= '0';
+--				   led3 <= '0';
+--				   led4 <= '0';
+--				   led5 <= '0';
+--				   led6 <= '0';	
 				 --  led7	<= '0';
                when para => --PARA: Se activa (dejando parados los contadores en cicloRLJ) el contador del parche 3x3 de la ROM3
                    para_contador <= '1';
@@ -269,13 +269,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '0';
 --                   fin_imagen <= '0';
 				   
-				   led0 <= '0';
-				   led1 <= '0';
-				   led2 <= '1';
-				   led3 <= '0';
-				   led4 <= '0';
-				   led5 <= '0';
-				   led6 <= '0';	
+--				   led0 <= '0';
+--				   led1 <= '0';
+--				   led2 <= '1';
+--				   led3 <= '0';
+--				   led4 <= '0';
+--				   led5 <= '0';
+--				   led6 <= '0';	
 				--   led7	<= '0';
                when Resta => --RESTA: Se desactiva el contador del parche 3x3 de la ROM3 (dejando parados los contadores de cicloRLJ), además se activa la comparación (resta) de los pixeles de los parches 3x3 de la ROM1 y ROM3
                    para_contador <= '1';
@@ -287,13 +287,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '0';
 --                   fin_imagen <= '0';
 				   
-				   led0 <= '0';
-				   led1 <= '0';
-				   led2 <= '0';
-				   led3 <= '1';
-				   led4 <= '0';
-				   led5 <= '0';
-				   led6 <= '0';	
+--				   led0 <= '0';
+--				   led1 <= '0';
+--				   led2 <= '0';
+--				   led3 <= '1';
+--				   led4 <= '0';
+--				   led5 <= '0';
+--				   led6 <= '0';	
 				--   led7	<= '0';
                when compara2 => --COMPARA2: Se mantienen los contadores del estado resta, se desactiva la comparación entre los pixeles (resta) y se activa la suma de +1 en los contadores de pixeles de los parches 3x3 de ROM1 y ROM3 asegurando que se han comparando entre ellos (en el modulo CMP)
                    para_contador <= '1';
@@ -305,13 +305,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '1';
 --                   fin_imagen <= '0';
 				   
-				   led0 <= '0';
-				   led1 <= '0';
-				   led2 <= '0';
-				   led3 <= '0';
-				   led4 <= '1';
-				   led5 <= '0';
-				   led6 <= '0';	
+--				   led0 <= '0';
+--				   led1 <= '0';
+--				   led2 <= '0';
+--				   led3 <= '0';
+--				   led4 <= '1';
+--				   led5 <= '0';
+--				   led6 <= '0';	
 				--   led7	<= '0';
                when comprueba => --COMPRUEBA: Se mantinen parados el contador de pixeles de la R2, se activa el contador de pixeles dentro de un mismo parche de la ROM1, y el contador de pixeles de un parche 3x3 de la ROM3
                    para_contador <= '1';
@@ -323,13 +323,13 @@ P_COM_SALIDAS: Process (estado_actual)
                    asigna <= '0';
 --                   fin_imagen <= '0';
 				   
-				   led0 <= '0';
-				   led1 <= '0';
-				   led2 <= '0';
-				   led3 <= '0';
-				   led4 <= '0';
-				   led5 <= '0';
-				   led6 <= '1';	
+--				   led0 <= '0';
+--				   led1 <= '0';
+--				   led2 <= '0';
+--				   led3 <= '0';
+--				   led4 <= '0';
+--				   led5 <= '0';
+--				   led6 <= '1';	
 				--   led7	<= '0';
            end case;
   end process;   
